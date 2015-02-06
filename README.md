@@ -1,4 +1,3 @@
-test
+Short Scripts
 ====
-
-first one
+Random useful short scripts or things I've learned. 

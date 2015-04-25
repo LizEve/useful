@@ -34,6 +34,20 @@ class FiletoDict(object):
         return self.dic
         self.f.close()
 
+def merg_dicts(dic1,dic2):
+    dic3={}
+    for key in dic1:
+        if key not in dic2:
+            dic3[key]=dic1[key]
+        if key in dic2:
+            d3=[] #create new list so original lists don't get changed
+            d3.extend(dic1[key]) #add values from dict1 and dict2 to new list
+            d3.extend(dic2[key])
+            dic3[key]=d3 #add key and now concatenated value to new dict
+    return dic3 #tested len(dic3.keys())=45 so all good. (44 + gene)    
+            
+len(merg_dicts(TL,TLrr)) 
+
 LHs=FiletoDict(path='/Users/ChatNoir/bin/Squam/data_files/tree_lens_3.23.15/20Garli_LHs.txt')
 tree_lens=FiletoDict(path='/Users/ChatNoir/bin/Squam/data_files/tree_lens_3.23.15/20Garli_tree_lens.txt')
 LHsrr=FiletoDict(path='/Users/ChatNoir/bin/Squam/data_files/tree_lens_3.23.15/20Garli_LHs_rr.txt')
@@ -45,21 +59,36 @@ LH=LHs.make_dic()
 TL=tree_lens.make_dic()
 LHrr=LHsrr.make_dic()
 TLrr=tree_lensrr.make_dic()
+print LH
 
-
-LH_all['AHR']
+d1=LH['AHR']
 TL['AHR']
-LHrr['AHR']
+d2=LHrr['AHR']
 TLrr['AHR']
+print d2
+print d1
+d3=d1.extend(d2)
+print d1
+print d3
+d1=[]
+d2=[]
+d3=[]
 
 dic1=LH
 dic2=LHrr
-def merg_dicts(dic1,dic2):
-    dic3=[]
-    for key in dic1:
-        if key in dic2:
+dic3={}
+for key in dic1:
+    if key not in dic2:
+        dic3[key]=dic1[key]
+    if key in dic2:
+        d3=[] #create new list so original lists don't get changed
+        d3.extend(dic1[key]) #add values from dict1 and dict2 to new list
+        d3.extend(dic2[key])
+        dic3[key]=d3 #add key and now concatenated value to new dict
+    print dic3.keys() #tested len(dic3.keys())=45 so all good. (44 + gene)        
         
-        
+
+print dic3.keys()       
         
     look up in first one
     if it is there, concat values. :

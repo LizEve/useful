@@ -24,7 +24,7 @@ def merg_dicts(dic1,dic2):
             print "you are missing values for",key,"in the second dictionary"
         if key in dic2:
             val=[dic1[key],dic2[key]]
-            print val
+            #print val
             dic3[key]=val
     for key in dic2:
         if key not in dic1:

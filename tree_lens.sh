@@ -73,4 +73,12 @@ echo $f:$x >> ../all_re_run_lenssss
 cd ../
 done
 
+# squamg_GENE.nex > GENE.nex
+for f in *.nex; 
+do
+gene=`echo $f | awk -F'_' '{ print $2}' |  awk -F'.' '{ print $1}' ` 
+echo $gene
+touch $gene'.nex'
+cp $f $gene'.nex'
+done
 

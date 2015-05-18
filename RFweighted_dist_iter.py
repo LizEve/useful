@@ -7,7 +7,7 @@ Created on Tue May 12 15:57:00 2015
 Calculates RF distance comparing one tree to a list of others. 
 
 PROBLEMS:
--sensitive to input file name, adjust as nessecary
+-sensitive to input file name, adjust as nessecary- see line 30
 
 """
 from __future__ import division
@@ -27,7 +27,7 @@ def comp_rf(file_name,concat_name,tnum): #wrapping in function for iteration or 
         rf=dp.calculate.treecompare.symmetric_difference(cat_tree,gene_tree)
         wrf=rf/w
     temp=file_name.split('.')[0] # extract gene name from file name- use this later
-    gene=temp.split('_')[0] #split name by .then by _    
+    gene=temp.split('_')[1] #split name by .then by _    
     return gene,wrf
 
 #demand user input

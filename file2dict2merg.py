@@ -44,15 +44,15 @@ def filetodict(fname):
         return dict1    
 
 #demand user input
-f1=input("name of file containing dictionary:") 
-f2=input("name of file containing dictionary:") 
+f1=input("name of file containing dictionary(TL):") 
+f2=input("name of file containing dictionary(RF):") 
 output_file=input("output file name:")
 
 #convert files to dictionaries
 dict1=filetodict(f1)
-print "Dictionary 1: "+f1+'='+str(dict1)
+print "Dictionary 1(TL): "+f1+'='+str(dict1)
 dict2=filetodict(f2)
-print "Dictionary 2: "+f2+'='+str(dict2)
+print "Dictionary 2(RF): "+f2+'='+str(dict2)
 
 #merge
 bigd=merg_dicts(dict1,dict2)

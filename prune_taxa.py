@@ -5,7 +5,11 @@ Created on Tue May 12 11:38:27 2015
 @author: ChatNoir
 
 takes file name and folder containing files, iterates through files and spitso ut newick trees minus the outgroups
-FIXED- need to 
+EDIT- need to change:   
+    outgroups
+    outfile name
+    folder name
+    
 
 """
 import dendropy as dp
@@ -18,13 +22,13 @@ def prune(fname,folder): #wrapping in function for iteration or one by one
     gene=temp.split('_')[1]
     fpath=os.path.abspath(fname) # get path to file
     tree=dp.Tree.get_from_path(fpath,schema='newick') #convert to dendropy tree
-    outgroups=('Homo sapiens' ,'Mus musculus' ,'Alligator mississippiensis' ,'Chelydra serpentina' ,'Crocodylus porosus' ,'Dromaius novaehollandiae' ,'Gallus gallus' ,'Podocnemis expansa' , 'Sphenodon_punctatus', 'Tachyglossus aculeatus')   
+    outgroups=('Homo sapiens' ,'Mus musculus' ,'Alligator mississippiensis' ,'Chelydra serpentina' ,'Crocodylus porosus' ,'Dromaius novaehollandiae' ,'Gallus gallus' ,'Podocnemis expansa' , 'Tachyglossus aculeatus')   
     tree.prune_taxa_with_labels(outgroups) #remove outgroups from tree
     outfile=folder+'/'+gene+'_prunedjs.phy' #output path constructed
     tree.write_to_path(outfile,'newick') #write out file
 
 
-folder="/Users/ChatNoir/bin/Squam/data_files/best_trees_pruned"
+folder="/Users/ChatNoir/bin/Squam/data_files/pruned_best_trees"
 for fn in os.listdir(folder): #iterate through files in a folder
     if fn.endswith("best.phy"):
         prune(fn, folder)

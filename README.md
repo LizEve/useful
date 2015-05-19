@@ -1,3 +1,7 @@
-Short Scripts
+Random Scripts
 ====
-Random useful short scripts or things I've learned. 
+
+Just starting out learning python. 
+Hopefully some of these are helpful. 
+Scripts for manipulating sequence and tree datasets. 
+Comments and questions welcome. 

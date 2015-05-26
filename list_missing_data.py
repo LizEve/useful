@@ -15,12 +15,13 @@ dna1 = dp.DnaCharacterMatrix.get_from_path("/Users/ChatNoir/bin/Squam/best_Garli
 
 
 fpath=os.path.abspath(taxa.txt) #import taxa names to make a dict with gene numbers
-fpath='/Users/ChatNoir/bin/Squam/data_files/taxa.txt'
+fpath='/Users/ChatNoir/bin/Squam/data_files/weins_taxa.txt'
+tlist=[]
 for line in open(fpath,'r'):
     tlist.append(line.strip())
 print tlist
 
-
+alist=[]
 for x in range(171):
     seq=str(dna1[x])
     alist.append(seq)
@@ -38,7 +39,8 @@ b='--------AGGGCACACCAATGTAGTCGTCCCAAGATCCAAACCTTTGATGCTGATTGCTCCAAAACCACAGGATAA
 
 miss=re.compile('[?]*') #set regex 
 x=miss.match(b).group() #search string #return line containing regex
-x=miss.match(a)
+x=miss.match(b)
+print x.span()
 if x.span()[1]==0:
     print "sequence exists"
 else:
@@ -48,17 +50,19 @@ else:
 
 #file with taxa names
 tlist=[]
-tpath='/Users/ChatNoir/bin/Squam/data_files/taxa.txt'
+tpath='/Users/ChatNoir/bin/Squam/data_files/weins_taxa.txt'
 for line in open(fpath,'r'):
         tlist.append(line.strip()) 
 #missing data dictionary
 mdata={}
 
-def comp_rf(fname,concat_name): #wrapping in function for iteration or one by one
+def missingtaxa(tlist,concat_name): #wrapping in function for iteration or one by one
     
     temp=fname.split('.')[0] # extract gene name from file name- use this later
     gene=temp.split('_')[1]
-        
+    hastaxa=[]
+    missingtaxa=[]
+    
     #initiate dendropy matrix    
     f_path=os.path.abspath(fname) #get path for nexus file
     taxa = dp.TaxonNamespace(label="global") #set taxa same for all datasets
@@ -67,9 +71,10 @@ def comp_rf(fname,concat_name): #wrapping in function for iteration or one by on
     #find missing data    
     for x in range(171): #iterate through all taxa in file 
         seq=str(nexus[x]) #turn seq into string to manipulate
-        miss=re.compile('[?]*') #set regex 
-        x=miss.match(seq)#search string 
-            if x.span()[1]==0:
+        qmarks=re.compile('[?]*') #set regex 
+        x=qmarks.match(seq)#search string does regex miss
+            if x.span()[1]==0: # If there IS data: (.span returns the index where .match starts and ends matching. so if it stops matching at 0. then it doesnt match at all. so there IS data there.)
+                
     # for each gene, list taxa that are included. save each gene as a list of taxa
             #combine all genes in a matrix
                 
@@ -179,4 +184,42 @@ end=data.find(';\nend;')
 algn=data[start:end]
 for line in algn:
     print line
+    
+    
+ ------------some more notes-------------
+taxa = dp.TaxonNamespace(label="global")
+dna1 = dp.DnaCharacterMatrix.get_from_path("/Users/ChatNoir/bin/Squam/best_Garli_runs/nexus_files/squamg_ADNP.nex", "nexus", taxon_namespace=taxa)
+
+
+fpath=os.path.abspath(taxa.txt) #import taxa names to make a dict with gene numbers
+fpath='/Users/ChatNoir/bin/Squam/data_files/weins_taxa.txt'
+tlist=[]
+for line in open(fpath,'r'):
+    tlist.append(line.strip())
+print tlist
+
+alist=[]
+for x in range(171):
+    seq=str(dna1[x])
+    alist.append(seq)
+print len(alist)
+print alist
+x=str(dna1(('Homo_sapiens'))) #want to iterate through all taxa 0-170 or whatever. if dna1[x]=regex match of ?* then output key:N else output key:Y
+x=dna1[1]
+print x[1]
+y='ACTGCCATGATTGGGCACACAAATGTAGTGGTTCCCCGATCCAAACCCTTGATGCTAATTGCTCCCAAACCTCAAGACAAGAAGAGCATGGGACTCCCACCAAGGATCGGTTCCCTTGCTTCTGGAAATGTCCGGTCTTTACCATCACAGCAGATGGTGAATCGACTCTCAATACCAAAGCCTAACTTAAATTCTACAGGAGTCAACATGATGTCCAGTGTTCATCTGCAGCAGAACAACTATGGAGTCAAATCTGTAGGCCAGGGTTACAGTGTTGGTCAGTCAATG---AGACTGGGTCTAGGTGGCAACGCACCAGTTTCCATTCCTCAACAATCTCAGTCTGTAAAGCAGTTACTTCCAAGTGGAAACGGAAGGTCTTATGGG---CTTGGGTCAGAGCAGAGGTCCCAGGCACCAGCAAGATACTCCCTGCAGTCTGCTAATGCCTCTTCTCTCTCATCGGGCCAGTTAAAGTCTCCTTCCCTCTCTCAGTCACAGGCATCCA---GAGTGTTAGGTCAGTCCAGTTCCAAACCTGCTGCAGCT---GCCACA------------GGCCCTCCCCCAGGTAACACTTCCTCAACTCAAAAGTGGAAAATATGTACAATCTGTAATGAGCTTTTTCCTGAAAATGTCTATAGTGTGCACTTCGAAAAAGAACATAAAGCTGAGAAAGTCCCAGCAGTAGCCAACTACATTATGAAAATACACAATTTTACTAGCAAATGCCTCTACTGTAATCGCTATTTACCCACAGATACTCTGCTCAACCATATGTTAATTCAT'
+x==y
+
+
+a='??????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????'
+b='--------AGGGCACACCAATGTAGTCGTCCCAAGATCCAAACCTTTGATGCTGATTGCTCCAAAACCACAGGATAAAAAGCCCATGGGACTTCCTCAGAGAATGGGCCCCTTGTCTCCTGGAAGTGTCCGGTCTCTTTCATCGCAGCAAATGATGAATCGACTGAATATACCAAAGCCTACTTTAAAT'
+
+miss=re.compile('[?]*') #set regex 
+x=miss.match(b).group() #search string #return line containing regex
+x=miss.match(b)
+print x.span()
+if x.span()[1]==0:
+    print "sequence exists"
+else:
+    print "only ???"   
 """

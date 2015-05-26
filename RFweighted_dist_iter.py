@@ -33,7 +33,7 @@ def comp_rf(file_name,concat_name,tnum): #wrapping in function for iteration or 
 #demand user input
 cat_name=input("name of tree file to compare to list of files:") #concat file name
 folder_with_trees=input("path to folder containing '.phy' tree files:") #folder with all .phy files
-output_file=input("output file name:")
+output_file=input("output file path:")
 tnum=input("number of taxa:")
         
 #initiate lists and things

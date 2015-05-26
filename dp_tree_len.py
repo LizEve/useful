@@ -17,15 +17,6 @@ import os
 import time
 
 
-
-
-
-
-fpath='/Users/ChatNoir/bin/Squam/data_files/pruned_best_trees/squamg_AHR.run00.best.phy'
-tree=dp.Tree.get_from_path(fpath,schema='newick') #convert to dendropy tree
-TL=round(dp.datamodel.treemodel.Tree.length(tree), 3)
-print TL
-
 def get_treelen(fname): #wrapping in function for iteration or one by one
     temp=fname.split('.')[0] # extract gene name from file name- use this later
     gene=temp.split('_')[0]
@@ -69,4 +60,10 @@ TESTING-
 fpath='/Users/ChatNoir/bin/Squam/data_files/pruned_best_trees/squamg_ADNP.run00.best.phy'
 tree=dp.Tree.get_from_path(fpath,schema='newick') #convert to dendropy tree
 dp.datamodel.treemodel.Tree.length(tree)
+
+
+fpath='/Users/ChatNoir/bin/Squam/data_files/pruned_best_trees/squamg_AHR.run00.best.phy'
+tree=dp.Tree.get_from_path(fpath,schema='newick') #convert to dendropy tree
+TL=round(dp.datamodel.treemodel.Tree.length(tree), 3)
+print TL
 """

@@ -28,10 +28,31 @@ def list_missing(fname):
                     outF.write(line)
     outF.close()
 
+def get_taxa(fname):
+    taxalist=[]
+    gene=fname.split('_')[0] #get gene name
+    with open(fname, 'r') as F: #open file
+        for line in F:
+            t=line.split('?') #split by ??
+            tx=t[0]
+            taxa=tx.strip()
+            taxalist.append(taxa) #add to list
+        return gene,taxalist
+
+
 folder='/Users/ChatNoir/bin/Squam/data_files/clocklikepaup'
 for fn in os.listdir(folder): 
     if fn.endswith(".nex"):        
         list_missing(fn)
         
+OF=open('listofmissingtaxa.txt', 'w+')
+for fn in os.listdir(folder): 
+    if fn.endswith("missingtaxa.txt"):
+        x=get_taxa(fn)
+        lineforfile=str(x[0])+': '+str(x[1])
+        OF.write(lineforfile)
+        OF.write('\n')
+OF.close()
         
         
+     

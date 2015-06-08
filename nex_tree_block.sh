@@ -16,6 +16,7 @@ done
 
 #Examples of use
 
+#iterate
 outfile='jspheno_141_genetrees.nex'
 #-e flag enables reading of \characters
 echo -e '#NEXUS\n\nBegin trees;\n\n' >> $outfile
@@ -26,5 +27,18 @@ tree=`cat $f`
 gene=`echo $f | awk -F'_' '{ print $1}' `
 echo -e 'tree '$gene' = [&U] '$tree >> $outfile
 done
+echo 'END;' >> $outfile
+
+#single
+outfile='ADNP_misstxremoved.nex'
+#-e flag enables reading of \characters
+echo -e '#NEXUS\n\nBegin trees;\n\n' >> $outfile
+f="ADNP_misstxremoved.phy"
+tree=`cat $f`
+#gene=`echo $f | awk -F'_' '{ print $2}' |  awk -F'.' '{ print $1}' `  
+gene=`echo $f | awk -F'_' '{ print $1}' `
+echo -e 'tree '$gene' = [&U] '$tree >> $outfile
+echo 'END;' >> $outfile
+
 
 

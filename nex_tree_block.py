@@ -4,6 +4,8 @@ Created on Tue May 19 10:21:03 2015
 
 @author: ChatNoir
 
+USE .sh SCRIPT
+
 take multiple newick tree files and create a nexus block. trees arent identifieyable by gene
 
 """

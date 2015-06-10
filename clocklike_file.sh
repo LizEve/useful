@@ -5,6 +5,7 @@
 for f in *.phy;
 do
 suffix="_clockchrk_misstxremoved.nex"
+base=`echo $f | awk -F'.' '{ print $1}' `
 gene=`echo $f | awk -F'_' '{ print $1}' `
 naked_tree=`cat $f`
 temp_tree=$gene".temp"
@@ -18,5 +19,5 @@ cat $seq $temp_tree >> $outfile
 echo -e "\n\nbegin paup;\n\noutGroup Homo_sapiens;\nRootTrees;\nlset nst=6 basefreq=empirical rates=gamma;\nclockchecker;\n\nend;" >> $outfile
 rm $temp_tree
 done
-#rm *_clockchrk_misstxremoved.nex
+#rm *_clockchrk_*
 

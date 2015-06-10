@@ -25,11 +25,11 @@ done
 rm GALR1_clockchrk_*
 rm SINCAIP_clockchrk_*
 
-f=SINCAIP_misstxremoved.phy
+fs=SINCAIP_misstxremoved.phy
 suffix="_clockchrk_misstxremoved.nex"
-base=`echo $f | awk -F'.' '{ print $1}' `
-gene=`echo $f | awk -F'_' '{ print $1}' `
-naked_tree=`cat $f`
+base=`echo $fs | awk -F'.' '{ print $1}' `
+gene=`echo $fs | awk -F'_' '{ print $1}' `
+naked_tree=`cat $fs`
 temp_tree=$gene".temp"
 touch $temp_tree
 echo -e "\n\nbegin trees;\n" >> $temp_tree
@@ -43,9 +43,10 @@ rm $temp_tree
 
 
 
-f=GALR1_misstxremoved.phy 
-gene=`echo $f | awk -F'_' '{ print $1}' `
-naked_tree=`cat $f`
+fgg=GALR1_misstxremoved.phy 
+base=`echo $fgg | awk -F'.' '{ print $1}' `
+gene=`echo $fgg | awk -F'_' '{ print $1}' `
+naked_tree=`cat $fgg`
 temp_tree=$gene".temp"
 touch $temp_tree
 echo -e "\n\nbegin trees;\n" >> $temp_tree
@@ -62,5 +63,10 @@ echo -e "\n\nbegin paup;\n\noutGroup Chelydra_serpentina;\nRootTrees;\nlset nst=
 echo -e "\n\nbegin paup;\n\noutGroup Dromaius_novaehollandiae;\nRootTrees;\nlset nst=6 basefreq=empirical rates=gamma;\nclockchecker;\n\nend;" >> $outfile2
 echo -e "\n\nbegin paup;\n\noutGroup Gallus_gallus;\nRootTrees;\nlset nst=6 basefreq=empirical rates=gamma;\nclockchecker;\n\nend;" >> $outfile3
 rm $temp_tree
+
+#rm GALR1_CS_clockchrk_misstxremoved.nex 
+#rm GALR1_DN_clockchrk_misstxremoved.nex 
+#rm GALR1_GG_clockchrk_misstxremoved.nex 
+
 
 

@@ -5,7 +5,7 @@
 ### There should also be a separate subdirectory for each nexus file with the jmod file IN the subfile
 ### make sure there are no other nexus files in your directory
 
-for f in *.nex; 
+for f in *.log; 
 do
 base=`basename $f .nex`
 cd $base

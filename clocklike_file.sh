@@ -5,8 +5,8 @@
 for f in *.phy;
 do
 suffix="_clockchrk_misstxremoved.nex"
-base=`echo $f | awk -F'.' '{ print $1}' `
 gene=`echo $f | awk -F'_' '{ print $1}' `
+base=`echo $f | awk -F'.' '{ print $1}' `
 naked_tree=`cat $f`
 temp_tree=$gene".temp"
 touch $temp_tree
@@ -20,4 +20,3 @@ echo -e "\n\nbegin paup;\n\noutGroup Homo_sapiens;\nRootTrees;\nlset nst=6 basef
 rm $temp_tree
 done
 #rm *_clockchrk_*
-

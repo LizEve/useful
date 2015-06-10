@@ -30,3 +30,13 @@ nfname=$gene'.nex'
 model=`tail -n 1 jmodg_squamg_$gene | awk '{print $2}'`
 echo -e $nfname'\t'$model >> $out
 done
+
+# iterate check files for a keyword and output all lines and file name
+for f in *.log; 
+do
+gene=`echo $f | awk -F'_' '{ print $1}' `
+echo $gene
+x=`cat $f | grep "lnL"`
+echo $x
+done
+

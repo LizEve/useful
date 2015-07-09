@@ -40,3 +40,29 @@ x=`cat $f | grep "lnL"`
 echo $x
 done
 
+for f in *clockLH.log; 
+do
+gene=`echo $f | awk -F'_' '{ print $1}' `
+echo $gene
+x=`cat $f`
+echo $x
+done
+
+
+for f in *_graph.png;
+do 
+gene=`echo $f | awk -F'_' '{ print $1}'` 
+newf=$gene'_prunedog.05.15.15.png'
+mv $f $newf 
+done
+
+out='ambiData.txt'
+for f in *misstxremoved.nex;
+do
+q=`grep -o "?" $f | wc -l`
+d=`grep -o "-" $f | wc -l`
+x=$[q+d]
+echo $x
+gene=`echo $f | awk -F'_' '{ print $1}' `
+echo -e $gene"\t"$x >> $out
+done

@@ -1,2 +1,0 @@
-Current date & time of run Sat Apr 25 13:25:32 2015
-[('AHR', 0), ('BDNF', 261), ('BMP2', 279), ('CAND1', 253)]

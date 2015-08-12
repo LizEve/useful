@@ -1,5 +1,26 @@
 #!/bin/bash
 
+
+#for lines in file, extract directory, extract part from directory, if that part matches a line in one file, add it to file. 
+for f in $(cat empDataList)
+do dirN=`dirname $f`
+gene=`echo $dirN | awk -F'/' '{print $5}'`
+
+if grep -Fxq $gene short.txt
+then
+echo $f >> empDataListS
+fi
+
+if grep -Fxq $gene long.txt
+then
+echo $f >> empDataListL
+fi
+
+done
+
+
+
+
 # squamg_GENE.nex > GENE.nex
 for f in *.nex; 
 do
@@ -65,4 +86,13 @@ x=$[q+d]
 echo $x
 gene=`echo $f | awk -F'_' '{ print $1}' `
 echo -e $gene"\t"$x >> $out
+done
+
+
+#remove folders correlating to .nex files
+for f in *.nex; 
+do
+gene=`echo $f | awk -F'.' '{ print $1}' `
+echo $gene
+rm -rf $gene
 done

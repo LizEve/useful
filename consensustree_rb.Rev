@@ -1,0 +1,11 @@
+treetrace = readTreeTrace("morphology_alltaxaGM_posterior_run_1.trees")
+consensusTree(treetrace, "noburnin_consensus_r1.t", 0.5, 2000)
+treetrace = 0
+treetrace = readTreeTrace("morphology_alltaxaGM_posterior_run_2.trees")
+consensusTree(treetrace, "noburnin_consensus_r2.t", 0.5, 2000)
+treetrace = 0
+treetrace = readTreeTrace("morphology_alltaxaGM_posterior_run_3.trees")
+consensusTree(treetrace, "noburnin_consensus_r3.t", 0.5, 2000)
+treetrace = 0
+treetrace = readTreeTrace("morphology_alltaxaGM_posterior_run_4.trees")
+consensusTree(treetrace, "noburnin_consensus_r4.t", 0.5, 2000)

@@ -2,6 +2,10 @@
 
 ###Useage: ./convertToNexus.py path/to/newick/tree/file
 ### converts a file of newick trees to a nexus file
+###need base folder with all gene files and .nex files for each gene in base folder. 
+###also need folder of mstx removed in base folder, that has in it base_mstx.txt for each gene with a column of all the missing taxa. 
+###taxa assumed to be named as Genus_species, and is parsed out in Genus species in empConvertToNexus
+
 import dendropy
 import os
 import sys
@@ -15,9 +19,6 @@ if len(sys.argv) ==1:
 else:
 	file = sys.argv[1]
 
-
-
-file="UBN1_emp.t"
 
 base=ntpath.basename(file).split("_")[0]
 out1=base+"_r1.t"

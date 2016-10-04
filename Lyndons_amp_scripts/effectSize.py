@@ -2,12 +2,12 @@ import numpy as np
 import glob
 
 
-files = glob.glob("amp-results/*.out")
+files = glob.glob("*.out")
 
 genes = []
 genes.append("gene")
 for f in files :
-    genes.append(f.split("/")[-1])
+    genes.append(f.split(".")[0])
 
 allResults = []
 allResults.append(genes)

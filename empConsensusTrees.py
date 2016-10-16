@@ -1,8 +1,13 @@
 #! /usr/bin/env python
-
-###Useage: ./convertToNexus.py path/to/newick/tree/file
-## run in folder containing gene.nex and gene/ 
-### converts a file of newick trees to a nexus file
+### takes 4 emperical tree files, creates subsampled files and then makes a consensus tree from the subsampled trees
+### consensus tree made with 0.5 min freq
+### run in folder containing gene.nex and gene/ 
+### "gene" names cannot include underscores _ unless you adjust the "gene" call 
+### requires a file for each "gene" named gene_mstx.txt
+### _mstx.txt should be a list of taxa that have all missing data and should be removed from the consensus tree
+### edit ssFileLen to the number of trees you want in your subsamples file
+### the subsampled file will be used to build the consensus tree
+### adjust burnin as needed. burnin = 1 covers the header line. 
 import dendropy
 import os
 import sys
@@ -30,6 +35,7 @@ for g in glob.glob('*_mstx.txt'):
 	
 	#split off locus name, dependant on what your iterating handle files are
 	gene = g.split("_")[0]
+	#gene = str(g.split("_")[0])+"_"+str(g.split("_")[1])
 	#create path to empTree folder. stolen from amp script so leaving "amp" in script
 	ampDirPath = os.path.join(mainDir,gene + "_empTree/")
 	#make directory for amp files

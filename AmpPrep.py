@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 ##Usage:
 ## run in folder containing gene.nex and gene/ 
-## This script is currently setup to assume there are four replicate runs for each emperical run.
+## This script is currently setup to assume there are replicate runs for emperical and simulated runs.
 ## burninSamples should be the number of printed lines that are burning in your simulated run. 
 ## the emperical run will already have burnin removed.
 ## the resulting files should have the following format

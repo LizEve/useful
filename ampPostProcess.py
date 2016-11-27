@@ -112,7 +112,7 @@ for n in range(0, len(allResults[0])) :
     row = "\t".join([item[n] for item in allResults])
     allRows.append(row)
 
-outHandle = open('Aug25_effect_sizes.tsv', 'a')
+outHandle = open('Effect_sizes.tsv', 'a')
 
 for r in allRows :
     outHandle.write(r + "\n")

@@ -48,9 +48,23 @@ for g in glob.glob('*.nex'):
 	gene = g.split(".")[0]
 	#create path to amp folder
 	ampDirPath = os.path.join(mainDir,gene + "_amp/")
-	#make directory for amp files
+	
+	#copy mstxrm list into gene folder
+	mstxrm_file = gene +"_mstx.txt"
+	shutil.copy2(mstxrm_file,ampDirPath+mstxrm_file)
+
 	#move to ampdir
 	os.chdir(ampDirPath)
+
+	#store missing taxa information into memory
+	txrm = []
+	taxaremoved =[]
+	for tx in open(mstxrm_file,'r'):
+		txrm.append(tx.strip())
+		for x in txrm:
+			y=x.split("_")
+			taxa=y[0]+" "+y[1]
+
 	#iterate through tree files
 	for t in glob.glob('*.trees'):
 		#get some info, file name, number of trees, counter for subsampling file, when to stop sampling file
@@ -75,16 +89,20 @@ for g in glob.glob('*.nex'):
 						ppTreeList = dendropy.TreeList()
 						#iterate through lines in file, split out newick string, transform to tree object, add to tree list
 						for i in itertools.islice(trees, burnin, stop, counter):
+							# 4th column has newick tree, grab this
 							newTree = (i.split()[4])
-							print (i.split()[0])
+							#turn into tree object
 							ppTree = dendropy.Tree.get(data=newTree, schema='newick')
+							#prune taxa
+							ppTree.prune_taxa_with_labels(taxaremoved)
 							ppTreeList.append(ppTree)
 							#print(len(ppTreeList))
 						#output tree list to outfile that is now readable into amp
 						ppTreeList.write(path=tOut, schema='nexus')
 						print file_len(tOut)
 				elif version == '3':
-					with open(t) as trees:
+					print "Please install Dendropy4 or edit script to work with Dendropy 3"
+					'''with open(t) as trees:
 						tOut = tName + '.t'
 						ppTreeList = dendropy.TreeList()
 						for i in itertools.islice(trees, burnin, stop, counter):
@@ -92,7 +110,10 @@ for g in glob.glob('*.nex'):
 							ppTree = dendropy.Tree.get_from_string(newTree, schema='newick')
 							ppTreeList.append(ppTree)
 							print(len(ppTreeList))
-						ppTreeList.write_to_path(tOut, schema='nexus')
+						ppTreeList.write_to_path(tOut, schema='nexus')'''
+				else:
+					print "Your version of Dendropy is either REAL old or non-existant. Please install Dendropy4"
+
 			#if file isn't long enough. 			
 			elif numTrees <= ssFileLen*counter + 1:
 				print t+" is too short. A .t file has NOT been created."

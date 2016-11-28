@@ -62,6 +62,10 @@ for g in glob.glob('*.nex'):
 		sim = logName.split("_")[1]
 		run = logName.split("_")[2]
 
+		#create temporary list for all runs of this sim #
+		sim_LHs = []
+		sim_Ps = []
+
 		#if its an emp file skip it, already checked these by hand. dont need to delete burnin. 
 		if str(sim) == "emp":
 			print "skip emp files"
@@ -70,6 +74,7 @@ for g in glob.glob('*.nex'):
 			#name r1 log file and create a wildcard to pick up other runs from same simulation
 			r1log = gene+"_"+str(sim)+"_"
 			wild = gene+"_"+str(sim)+"_*"
+
 			#find all files in the current folder from the same simulation number as the current r1.log 
 			for file in os.listdir('.'):
 				if fnmatch.fnmatch(file, wild):
@@ -81,10 +86,9 @@ for g in glob.glob('*.nex'):
 					frun = fname.split("_")[2]
 					tag = gene+"_"+fsim+"_"+frun
 					sim = gene+"_"+fsim
-					#create temporary list for all runs of this sim #
-					sim_LHs = []
-					sim_Ps = []
+
 					
+					# open each log file for a sim.
 					with open(file) as f:
 						#start lists of values
 						listLH = []
@@ -133,31 +137,31 @@ for g in glob.glob('*.nex'):
 						sim_LHs.append(tup_mean_LH)
 						sim_Ps.append(tup_mean_P)
 
-					# calculate mean and std for run means of current sim
-					list_sim_LHs = [x[1] for x in sim_LHs]
-					list_sim_Ps = [x[1] for x in sim_Ps]
-					sim_mean_LH=np.mean(list_sim_LHs)
-					sim_std_LH=np.std(list_sim_LHs)
-					sim_mean_P=np.mean(list_sim_Ps)
-					sim_std_P=np.std(list_sim_Ps)
+			# calculate mean and std for run means of current sim
+			list_sim_LHs = [x[1] for x in sim_LHs]
+			list_sim_Ps = [x[1] for x in sim_Ps]
+			sim_mean_LH=np.mean(list_sim_LHs)
+			sim_std_LH=np.std(list_sim_LHs)
+			sim_mean_P=np.mean(list_sim_Ps)
+			sim_std_P=np.std(list_sim_Ps)
 
-					# add run ID to problem list if run mean LH or P is outside of 2 stds of sim mean
-					for tup in sim_LHs:
-						if tup[1] > float(sim_mean_LH+2*sim_std_LH):
-							problemChildren.append(tup)
-						elif tup[1] < float(sim_mean_LH-2*sim_std_LH):
-							problemChildren.append(tup)
+			# add run ID to problem list if run mean LH or P is outside of 2 stds of sim mean
+			for tup in sim_LHs:
+				if tup[1] > float(sim_mean_LH+2*sim_std_LH):
+					problemChildren.append(tup)
+				elif tup[1] < float(sim_mean_LH-2*sim_std_LH):
+					problemChildren.append(tup)
 
-					for tup in sim_Ps:
-						if tup[1] > float(sim_mean_P+2*sim_std_P):
-							problemChildren.append(tup)
-						elif tup[1] < float(sim_mean_P-2*sim_std_P):
-							problemChildren.append(tup)
-					# record sim stats and add to meta list
-					# sim_stats=[simName,sim_mean_LH,sim_std_LH_mean]
-					sim_stats=[sim, sim_mean_LH, sim_std_LH, sim_mean_P, sim_std_P]
-					print sim_stats
-					all_sim_stats.append(sim_stats)
+			for tup in sim_Ps:
+				if tup[1] > float(sim_mean_P+2*sim_std_P):
+					problemChildren.append(tup)
+				elif tup[1] < float(sim_mean_P-2*sim_std_P):
+					problemChildren.append(tup)
+			# record sim stats and add to meta list
+			# sim_stats=[simName,sim_mean_LH,sim_std_LH_mean]
+			sim_stats=[sim, sim_mean_LH, sim_std_LH, sim_mean_P, sim_std_P]
+			print sim_stats
+			all_sim_stats.append(sim_stats)
 
 	with open('stds_LH_out.txt', 'w') as fp:
 		fp.write('\n'.join('{} {}'.format(*x) for x in std_LHs))

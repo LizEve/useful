@@ -1,12 +1,13 @@
+#! /usr/bin/env python
 import numpy as np
 import glob
 import csv
 
-files = glob.glob("*.out")
+files = glob.glob('*.out')
 
 genes = []
 genes.append("gene")
-for f in files :
+for f in files:
     genes.append(f.split(".")[0])
 
 allResults = []
@@ -23,7 +24,6 @@ testStatistics = ["Posterior Predictive 1-th 1000-quantile Test Statistics:",
 "Posterior Predictive 99-th 100-quantile Test Statistics:",
 "Posterior Predictive 999-th 1000-quantile Test Statistics:",
 "Posterior Predictive 9999-th 10000-quantile Test Statistics:",
-"Posterior Predictive Entropy-based Test Statistics:",
 "Posterior Predictive Interquartile Range Test Statistics:",
 "Posterior Predictive Mean Treelength Test Statistics:",
 "Posterior Predictive Treelength Variance Test Statistics:"]

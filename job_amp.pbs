@@ -1,7 +1,7 @@
 #!/bin/bash
 #PBS -q workq
 #PBS -l nodes=1:ppn=16
-#PBS -l walltime=6:00:00
+#PBS -l walltime=07:00:00
 #PBS -N Amp
 #PBS -o $PBS_JOBNAME.out
 #PBS -e $PBS_JOBNAME.err
@@ -9,33 +9,43 @@
 
 
 cd /work/gmount/Amp/NKTR_amp
-./amp0.99eDp4.py -q 9999,10000,999,1000,99,100,3,4,2,4,1,4,1,6,1,8,1,10,1,20,1,100,1,1000 -i -T -V  -lut -o "NKTR.amp.out" --debug --timeit --nworkers 16 -v NKTR 96 4 > ampLog.txt
+rm amp*
+cp ../amp0.99e1.py .
+./amp0.99e1.py -q 9999,10000,999,1000,99,100,3,4,2,4,1,4,1,6,1,8,1,10,1,20,1,100,1,1000 -i -T -V  -lut -o "NKTR.amp.out" --debug --timeit --nworkers 16 -v NKTR 96 4 > ampLog.txt
 
 cd /work/gmount/Amp/NTF_amp
-./amp0.99eDp4.py -q 9999,10000,999,1000,99,100,3,4,2,4,1,4,1,6,1,8,1,10,1,20,1,100,1,1000 -i -T -V  -lut -o "NTF.amp.out" --debug --timeit --nworkers 16 -v NTF 96 4 > ampLog.txt
+rm amp*
+cp ../amp0.99e1.py .
+./amp0.99e1.py -q 9999,10000,999,1000,99,100,3,4,2,4,1,4,1,6,1,8,1,10,1,20,1,100,1,1000 -i -T -V  -lut -o "NTF.amp.out" --debug --timeit --nworkers 16 -v NTF 92 4 > ampLog.txt
 
 cd /work/gmount/Amp/PNN_amp
-./amp0.99eDp4.py -q 9999,10000,999,1000,99,100,3,4,2,4,1,4,1,6,1,8,1,10,1,20,1,100,1,1000 -i -T -V  -lut -o "PNN.amp.out" --debug --timeit --nworkers 16 -v PNN 96 4 > ampLog.txt
-
-cd /work/gmount/Amp/PRLR_amp
-./amp0.99eDp4.py -q 9999,10000,999,1000,99,100,3,4,2,4,1,4,1,6,1,8,1,10,1,20,1,100,1,1000 -i -T -V  -lut -o "PRLR.amp.out" --debug --timeit --nworkers 16 -v PRLR 96 4 > ampLog.txt
+rm amp*
+cp ../amp0.99e1.py .
+./amp0.99e1.py -q 9999,10000,999,1000,99,100,3,4,2,4,1,4,1,6,1,8,1,10,1,20,1,100,1,1000 -i -T -V  -lut -o "PNN.amp.out" --debug --timeit --nworkers 16 -v PNN 76 4 > ampLog.txt
 
 cd /work/gmount/Amp/PTGER4_amp
-./amp0.99eDp4.py -q 9999,10000,999,1000,99,100,3,4,2,4,1,4,1,6,1,8,1,10,1,20,1,100,1,1000 -i -T -V  -lut -o "PTGER4.amp.out" --debug --timeit --nworkers 16 -v PTGER4 96 4 > ampLog.txt
-
-cd /work/gmount/Amp/PTPN_amp
-./amp0.99eDp4.py -q 9999,10000,999,1000,99,100,3,4,2,4,1,4,1,6,1,8,1,10,1,20,1,100,1,1000 -i -T -V  -lut -o "PTGER4.amp.out" --debug --timeit --nworkers 16 -v PTGER4 96 4 > ampLog.txt
+rm amp*
+cp ../amp0.99e1.py .
+./amp0.99e1.py -q 9999,10000,999,1000,99,100,3,4,2,4,1,4,1,6,1,8,1,10,1,20,1,100,1,1000 -i -T -V  -lut -o "PTGER4.amp.out" --debug --timeit --nworkers 16 -v PTGER4 77 4 > ampLog.txt
 
 cd /work/gmount/Amp/R35_amp
-./amp0.99eDp4.py -q 9999,10000,999,1000,99,100,3,4,2,4,1,4,1,6,1,8,1,10,1,20,1,100,1,1000 -i -T -V  -lut -o "R35.amp.out" --debug --timeit --nworkers 16 -v R35 96 4 > ampLog.txt
+rm amp*
+cp ../amp0.99e1.py .
+./amp0.99e1.py -q 9999,10000,999,1000,99,100,3,4,2,4,1,4,1,6,1,8,1,10,1,20,1,100,1,1000 -i -T -V  -lut -o "R35.amp.out" --debug --timeit --nworkers 16 -v R35 96 4 > ampLog.txt
 
 cd /work/gmount/Amp/RAG1_amp
-./amp0.99eDp4.py -q 9999,10000,999,1000,99,100,3,4,2,4,1,4,1,6,1,8,1,10,1,20,1,100,1,1000 -i -T -V  -lut -o "RAG1.amp.out" --debug --timeit --nworkers 16 -v RAG1 96 4 > ampLog.txt
+rm amp*
+cp ../amp0.99e1.py .
+./amp0.99e1.py -q 9999,10000,999,1000,99,100,3,4,2,4,1,4,1,6,1,8,1,10,1,20,1,100,1,1000 -i -T -V  -lut -o "RAG1.amp.out" --debug --timeit --nworkers 16 -v RAG1 58 4 > ampLog.txt
 
 cd /work/gmount/Amp/SINCAIP_amp
-./amp0.99eDp4.py -q 9999,10000,999,1000,99,100,3,4,2,4,1,4,1,6,1,8,1,10,1,20,1,100,1,1000 -i -T -V  -lut -o "SINCAIP.amp.out" --debug --timeit --nworkers 16 -v SINCAIP 96 4 > ampLog.txt
+rm amp*
+cp ../amp0.99e1.py .
+./amp0.99e1.py -q 9999,10000,999,1000,99,100,3,4,2,4,1,4,1,6,1,8,1,10,1,20,1,100,1,1000 -i -T -V  -lut -o "SINCAIP.amp.out" --debug --timeit --nworkers 16 -v SINCAIP 86 4 > ampLog.txt
 
 cd /work/gmount/Amp/SLC30A1_amp
-./amp0.99eDp4.py -q 9999,10000,999,1000,99,100,3,4,2,4,1,4,1,6,1,8,1,10,1,20,1,100,1,1000 -i -T -V  -lut -o "SLC30A1.amp.out" --debug --timeit --nworkers 16 -v SLC30A1 96 4 > ampLog.txt
+rm amp*
+cp ../amp0.99e1.py .
+./amp0.99e1.py -q 9999,10000,999,1000,99,100,3,4,2,4,1,4,1,6,1,8,1,10,1,20,1,100,1,1000 -i -T -V  -lut -o "SLC30A1.amp.out" --debug --timeit --nworkers 16 -v SLC30A1 93 4 > ampLog.txt
 
 exit

@@ -3,8 +3,8 @@ library(phytools)
 library(geiger)
 
 #set working directory, gene name, and file suffix
-setwd("/Users/ChatNoir/Projects/Squam/RevBayes/PP_final_empTrees/empTrees")
-gene='AHR'
+setwd("/Users/ChatNoir/Projects/Squam/RevBayes/PP_final_empTrees/AHR_test/AHR_mike/AHR_negControl_empTree")
+gene='AHR_negControl'
 inFile <- paste(gene,"_mstxrm.trees", sep = "")
 
 #read in trees
@@ -41,3 +41,9 @@ nope = c("Tupinambis_teguixin",  "Callopistes_maculatus", "Teius_teyou")
 clade = c("Rhineura_floridana", "Diplometopon_zarudnyi", "Bipes_canaliculatus", "Bipes_biporus", "Amphisbaena_fuliginosa")
 clade = c("Phrynosoma_platyrhinos", "Uma_scoparia", "Petrosaurus_mearnsi", "Sceloporus_variabilis", "Uta_stansburiana")
 
+tfmono <- c(sapply(trees, isMono, clade = nope))
+
+#check if there are any trees that do not contain given clade as monophyletic
+#False = Monophyletic
+#True = NOT monophyletic (list includes F therefore nonmon trees)
+'FALSE' %in% tfmono

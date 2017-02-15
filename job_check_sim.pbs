@@ -1,0 +1,42 @@
+#!/bin/bash
+#PBS -q single
+#PBS -l nodes=1:ppn=1
+#PBS -l walltime=1:00:00
+#PBS -N check_sim_jan25th
+#PBS -o $PBS_JOBNAME.out
+#PBS -e $PBS_JOBNAME.err
+#PBS -A hpc_phyleaux08
+
+cd /work/gmount/PP_all_RevBayes/
+
+
+for g in *_sim.zip
+do
+#get gene name
+gene=`echo $g | awk -F '_' '{print $1}'`
+echo $gene
+cd $gene'/output/'
+# set output remove previous outfiles
+log=$gene'_posterior.log'
+outFile='DuplicateCheck_'$gene'_posterior.txt'
+rm $outFile
+# check for duplicates (should return nothing)
+for f in posterior_predictive_sim_*
+do
+num=`echo $f | awk -F '_' '{print $4}'`
+cd $f
+line=`sed -n '3p' < $log`
+LH=`echo $line | awk -F ' ' '{print $4}'`
+cd ../
+echo $LH >> $outFile
+done
+sort $outFile | uniq -d
+#check number of sim tree files (96)
+ls posterior_predictive_sim_*/$gene'_posterior.trees' | wc -l
+#check lines per sim tree file (1002)
+wc -l posterior_predictive_sim_*/$gene'_posterior.log'
+cd ../../
+done
+
+
+exit

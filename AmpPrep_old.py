@@ -50,23 +50,26 @@ for g in glob.glob('*.nex'):
 	ampDirPath = os.path.join(mainDir,gene + "_amp/")
 	#make directory for amp files
 	if not os.path.exists(ampDirPath):
-		os.mkdir(ampDirPath)	
-	#move into gene folder
+		os.mkdir(ampDirPath)	#move into gene folder
 	outputDirPath = os.path.join(mainDir,gene,"output/")
 	os.chdir(outputDirPath)
 	#put emp files into ampDir
-	inFile = gene +'_posterior.trees'
-	outFile = gene + "_emp_r1.trees"
-	shutil.copy2(inFile,ampDirPath+outFile)
+	for r in glob.glob('*_run_*.trees'):
+		runNum = r.split("_")[3]
+		#create amp file name structure
+		outFile = gene + "_emp_r" + runNum
+		#move to amp folder
+		shutil.copy2(r,ampDirPath+outFile)
 	# iterate through pp out files
 	for p in glob.glob('posterior_predictive_sim_*'):
 		simNum = p.split("_")[3]
 		# move into each pp folder
 		os.chdir(p)
 		#iterate run files, rename and move to ampDir
-		simFile='AHR_posterior.trees'
-		outsimFile = gene + "_" + simNum +"_r1.trees"
-		shutil.copy2(inFile,ampDirPath+outsimFile)
+		for r in glob.glob('*_run_*.trees'):
+			runNum = r.split("_")[3]
+			outFile = gene + "_" + simNum + "_r" + runNum
+			shutil.copy2(r,ampDirPath+outFile)
 		#move to gene/output
 		os.chdir(outputDirPath)
 
@@ -98,7 +101,7 @@ for g in glob.glob('*.nex'):
 							newTree = (i.split()[4])
 							ppTree = dendropy.Tree.get(data=newTree, schema='newick')
 							ppTreeList.append(ppTree)
-							#print(len(ppTreeList))
+							print(len(ppTreeList))
 						#output tree list to outfile that is now readable into amp
 						ppTreeList.write(path=tOut, schema='nexus')
 				elif version == '3':
@@ -109,7 +112,7 @@ for g in glob.glob('*.nex'):
 							newTree = (i.split()[4])
 							ppTree = dendropy.Tree.get_from_string(newTree, schema='newick')
 							ppTreeList.append(ppTree)
-							#print(len(ppTreeList))
+							print(len(ppTreeList))
 						ppTreeList.write_to_path(tOut, schema='nexus')
 			#if file isn't long enough. 			
 			elif numTrees <= ssFileLen*counter + 1:

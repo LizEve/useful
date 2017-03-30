@@ -24,6 +24,8 @@ ssFileLen = 100
 # because we count from 0, burnin will automatically include header line
 # for all files, emperical and simulated. make two options later
 burnin = 250
+#far is how many stds you want to flag for possible issues
+far = 4
 
 ######
 #make sure you are in directory that you are calling script from 
@@ -34,9 +36,10 @@ outFileDirPath = os.path.join(mainDir,'Problem_children.txt')
 with open(outFileDirPath, 'w') as fp:
 
 	#iterate through gene folders, need to have some handle to iterate through these. could be *.nex
-	for g in glob.glob('*.nex'):
+	for g in glob.glob('*_amp.zip'):
 		#split off locus name, dependant on what your iterating handle files are
-		gene = g.split(".")[0]
+		gene = g.split("_")[0]
+		print gene
 		#create path to output
 		outputDirPath = os.path.join(mainDir,gene, "output/")
 
@@ -146,51 +149,65 @@ with open(outFileDirPath, 'w') as fp:
 				simtl_mean = np.mean(stlList)
 				simtl_median = np.median(stlList)
 
-				# if the mean for any of these is outside one std of the emp mean, print name and which value to output file
-				if simprm1_mean > float(empprm1_mean+3*empprm1_std):
-					issue = str(simprm1_mean) + ' - ' + tag + "  part_rate_mult_1_mean" + "\n"
-					fp.write(issue)
-				elif simprm1_mean < float(empprm1_mean-3*empprm1_std):
-					issue = str(simprm1_mean) + ' - ' + tag + "  part_rate_mult_1_mean" + "\n"
-					fp.write(issue)
-
-				if simprm2_mean > float(empprm2_mean+3*empprm2_std):
-					issue = str(simprm2_mean) + ' - ' + tag + "  part_rate_mult_2_mean" + "\n"
-					fp.write(issue)
-				elif simprm2_mean < float(empprm2_mean-3*empprm2_std):
-					issue = str(simprm2_mean) + ' - ' + tag + "  part_rate_mult_2_mean" + "\n"
-					fp.write(issue)
-
-				if simprm3_mean > float(empprm3_mean+3*empprm3_std):
-					issue = str(simprm3_mean) + ' - ' + tag + "  part_rate_mult_3_mean" + "\n"
-					fp.write(issue)
-				elif simprm3_mean < float(empprm3_mean-3*empprm3_std):
-					issue = str(simprm3_mean) + ' - ' + tag + "  part_rate_mult_3_mean" + "\n"
-					fp.write(issue)
-
-				if simtl_mean > float(emptl_mean+3*emptl_std):
-					issue = str(simtl_mean) + ' - ' + tag + "  TL_mean" + "\n"
-					fp.write(issue)
-				elif simtl_mean < float(emptl_mean-3*emptl_std):
-					issue = str(simtl_mean) + ' - ' + tag + "  TL_mean" + "\n"
-					fp.write(issue)
-
 			# if the std for any of these is outside one std of the emp std, print name and which value to output file
-				if simprm1_std > float(empprm1_std):
-					issue = str(simprm1_std) + ' - ' + tag + "  part_rate_mult_1_std" + "\n"
+				if round(simprm1_std, 3) > round(float(empprm1_std),3):
+					#issue = str(simprm1_std) + ' - ' + tag + "  part_rate_mult_1_std" + "\n"
+					issue = tag + " std " + str(simprm1_std) + "\n"
+					fp.write(issue)
+				elif round(simprm2_std, 3) > round(float(empprm2_std), 3):
+                                        issue = tag + " std " + str(simprm2_std) + "\n"
+                                        fp.write(issue)
+				elif round(simprm3_std, 3) > round(float(empprm3_std), 3): 
+                                        issue = tag + " std " + str(simprm3_std) + "\n"
+                                        fp.write(issue)
+				elif round(simtl_std, 3) > round(float(emptl_std), 3):
+                                        issue = tag + " std " + str(simtl_std) + "\n"
+                                        fp.write(issue)
+
+				# if the mean for any of these is outside one std of the emp mean, print name and which value to output file
+				elif simprm1_mean > float(empprm1_mean+far*empprm1_std):
+					#issue = str(simprm1_mean) + ' - ' + tag + "  part_rate_mult_1_mean" + "\n"
+					issue = tag + " mean" + "\n"
 					fp.write(issue)
 
-				if simprm2_std > float(empprm2_std):
-					issue = str(simprm2_std) + ' - ' + tag + "  part_rate_mult_2_std" + "\n"
+				elif simprm1_mean < float(empprm1_mean-far*empprm1_std):
+					#issue = str(simprm1_mean) + ' - ' + tag + "  part_rate_mult_1_mean" + "\n"
+					issue = tag + " mean" + "\n"
 					fp.write(issue)
-				
-				if simprm3_std > float(empprm3_std):
-					issue = str(simprm3_std) + ' - ' + tag + "  part_rate_mult_3_std" + "\n"
+
+				elif simprm2_mean > float(empprm2_mean+far*empprm2_std):
+					#issue = str(simprm2_mean) + ' - ' + tag + "  part_rate_mult_2_mean" + "\n"
+					issue = tag + " mean" + "\n"
 					fp.write(issue)
-				
-				if simtl_std > float(emptl_std):
-					issue = str(simtl_std) + ' - ' + tag + "  TL_std" + "\n"
+
+				elif simprm2_mean < float(empprm2_mean-far*empprm2_std):
+					#issue = str(simprm2_mean) + ' - ' + tag + "  part_rate_mult_2_mean" + "\n"
+					issue = tag + " mean" + "\n"
 					fp.write(issue)
-								
+
+				elif simprm3_mean > float(empprm3_mean+far*empprm3_std):
+					#issue = str(simprm3_mean) + ' - ' + tag + "  part_rate_mult_3_mean" + "\n"
+					issue = tag + " mean" + "\n"
+					fp.write(issue)
+
+				elif simprm3_mean < float(empprm3_mean-far*empprm3_std):
+					#issue = str(simprm3_mean) + ' - ' + tag + "  part_rate_mult_3_mean" + "\n"
+					issue = tag + " mean" + "\n"
+					fp.write(issue)
+
+				elif simtl_mean > float(emptl_mean+far*emptl_std):
+					#issue = str(simtl_mean) + ' - ' + tag + "  TL_mean" + "\n"
+					issue = tag + " mean" + "\n"
+					fp.write(issue)
+
+				elif simtl_mean < float(emptl_mean-far*emptl_std):
+					#issue = str(simtl_mean) + ' - ' + tag + "  TL_mean" + "\n"
+					issue = tag + " mean" + "\n"
+					fp.write(issue)
+
+
+		linebreak = "-----------------------------" + "\n"
+		fp.write(linebreak)
 		#move out of folder and begin again
 		os.chdir(mainDir)
+

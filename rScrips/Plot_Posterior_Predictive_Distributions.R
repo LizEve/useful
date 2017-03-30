@@ -1,0 +1,6 @@
+source("Plot_Posterior_Predictive_Distributions_sim_GTR.R")
+source("Plot_Posterior_Predictive_Distributions_sim_GTR_Inv.R")
+source("Plot_Posterior_Predictive_Distributions_sim_GTR_Gamma.R")
+source("Plot_Posterior_Predictive_Distributions_sim_GTR_Gamma_Inv.R")
+
+source("Plot_Posterior_Predictive_Distributions_Primates_cytb.R")

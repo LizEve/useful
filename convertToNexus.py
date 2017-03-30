@@ -18,5 +18,5 @@ out=ntpath.basename(file).split(".")[0]+"_r1.t"
 
 
 pp_trees = dendropy.TreeList()
-pp_trees.read_from_path(file, 'newick', rooting='force-unrooted')
+ppTree = dendropy.Tree.get(file, 'newick', rooting='force-unrooted')
 pp_trees.write_to_path(out, schema='nexus')
